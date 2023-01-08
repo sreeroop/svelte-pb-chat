@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount, onDestroy } from "svelte";
-    import { currentUser, pb } from "./pocketbase";
+    import { currentUser, pb } from "../../lib/pocketbase";
+
     let messages = [];
     let newMessage: string;
     let unsubscribe: () => void;
@@ -40,6 +41,7 @@
     }
 </script>
 
+<!-- 
 <div class="messages">
     {#each messages as message (message.id)}
         <div class="msg">
@@ -57,9 +59,44 @@
             </div>
         </div>
     {/each}
+</div> -->
+
+<div class="w-full px-5 flex flex-col justify-between">
+    <div class="flex flex-col mt-5">
+        {#each messages as message (message.id)}
+            <div
+                class={`flex 
+                mb-4 justify-end `}
+                class:flex-row-reverse={message.expand?.user?.username !==
+                    $currentUser.username}
+            >
+                <div
+                    class="mr-2 ml-2 py-3 px-4 bg-green-700 rounded-xl min-w-1/2 text-white"
+                >
+                    <p>{message?.message}</p>
+                    <small>
+                        @{message.expand?.user?.username}
+                    </small>
+                </div>
+                <img
+                    src={`https://avatars.dicebear.com/api/identicon/${message.expand?.user?.username}.svg`}
+                    class="object-cover h-8 w-8"
+                    alt=""
+                    width="40px"
+                />
+            </div>
+        {/each}
+    </div>
 </div>
 
 <form on:submit|preventDefault={sendMessage}>
-    <input placeholder="message" type="text" bind:value={newMessage} />
+    <div class="py-5">
+        <input
+            class="w-full bg-gray-300 py-5 px-3 rounded-xl border-red-100"
+            type="text"
+            placeholder="type your message here..."
+            bind:value={newMessage}
+        />
+    </div>
     <button type="submit">Send</button>
 </form>
