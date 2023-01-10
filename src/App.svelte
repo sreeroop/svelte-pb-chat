@@ -2,9 +2,10 @@
   import Login from "./lib/Login.svelte";
   import { currentUser } from "../lib/pocketbase";
   import Messages from "./lib/Messages.svelte";
+  import Nav from "./lib/Nav.svelte";
 </script>
 
-<h1 class="text-3xl font-bold underline">Hello world!</h1>
+<Nav />
 
 {#if $currentUser}
   <p>signed in as {$currentUser.username}</p>

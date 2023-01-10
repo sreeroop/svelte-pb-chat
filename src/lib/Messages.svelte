@@ -61,7 +61,7 @@
     {/each}
 </div> -->
 
-<div class="w-full px-5 flex flex-col justify-between">
+<div class="w-full px-5 flex flex-col justify-between mb-20">
     <div class="flex flex-col mt-5">
         {#each messages as message (message.id)}
             <div
@@ -89,8 +89,11 @@
     </div>
 </div>
 
-<form on:submit|preventDefault={sendMessage}>
-    <div class="py-5">
+<form
+    on:submit|preventDefault={sendMessage}
+    class="flex flex-row justify-center items-center fixed bottom-0 w-full px-6 py-2 bg-slate-600"
+>
+    <div class="py-1">
         <input
             class="w-full bg-gray-300 py-5 px-3 rounded-xl border-red-100"
             type="text"
@@ -98,5 +101,5 @@
             bind:value={newMessage}
         />
     </div>
-    <button type="submit">Send</button>
+    <button type="submit" class="px-12 py-2 h-9">Send</button>
 </form>
